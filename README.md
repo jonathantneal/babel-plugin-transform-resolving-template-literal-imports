@@ -1,4 +1,4 @@
-# ESLit [<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" alt="JavaScript Logo" width="90" height="90" align="right">][ESLit]
+# ESLit [<img src="https://jonathantneal.github.io/js-logo.svg" alt="" width="90" height="90" align="right">][ESLit]
 
 [![NPM Version][npm-img]][npm-url]
 [![Build Status][cli-img]][cli-url]
@@ -9,12 +9,12 @@ expressions.
 
 ```jsx
 <!-- some/template.html -->
-<h1>${ heading }</h1>
+<h1>${heading}</h1>
 <table>
-  ${ people.map((person) => `<tr>
-    <td>${ person.given }</td>
-    <td>${ person.family }</td>
-  </tr>`) }
+  ${people.map(person => `<tr>
+    <td>${person.given}</td>
+    <td>${person.family}</td>
+  </tr>`)}
 </table>
 ```
 
@@ -65,13 +65,23 @@ ESLit returns a Promise to render a template once its embedded Promises are reso
 require('eslit')(src, data, options);
 ```
 
-Use the `include` function within templates to bring in other templates.
+Use the `import` function within templates to bring in other templates.
 
 ```jsx
-<h1>${ heading }</h1>
+<h1>${heading}</h1>
 
 <table>
-  ${ include('some/table') /* includes some/table.html */ }
+  ${import('some/table') /* includes some/table.html */}
+</table>
+```
+
+Alternatively, the `include` function lets you specify additional data.
+
+```jsx
+<h1>${heading}</h1>
+
+<table>
+  ${import('some/table', { additional: 'data' })}
 </table>
 ```
 
@@ -124,7 +134,7 @@ eslit.parse( string, data, { cwd, prefixes, extensions, globopts } );
 The resolve function returns a Promise that is resolved once its embedded promises have resolved.
 
 ```js
-eslit.resolve`Template literal to be ${ Promise.resolve('resolved') }`;
+eslit.resolve`Template literal to be ${Promise.resolve('resolved')}`;
 ```
 
 ---
